@@ -10,10 +10,19 @@ window.addEventListener('DOMContentLoaded', function(){
       let dateStop = new Date(deadline).getTime(),
         dateNow = new Date().getTime(),
         timeRemaining = (dateStop - dateNow) / 1000,
-        seconds = Math.floor(timeRemaining % 60),
-        minutes = Math.floor((timeRemaining / 60) % 60),
-        hours = Math.floor(timeRemaining / 60 / 60);
-        return {timeRemaining, hours, minutes, seconds};
+        seconds = two2digits(Math.floor(timeRemaining % 60)),
+        minutes = two2digits(Math.floor((timeRemaining / 60) % 60)),
+        hours = two2digits(Math.floor(timeRemaining / 60 / 60));
+
+        if (dateStop > dateNow) {
+
+          return {timeRemaining, hours, minutes, seconds};
+        } else {
+          return {timeRemaining: 0,
+                 hours: '00',
+                 minutes: '00',
+                 seconds: '00'};
+        }
     }
 
     function updateClock(){
@@ -22,15 +31,21 @@ window.addEventListener('DOMContentLoaded', function(){
       timerHours.textContent = timer.hours;
       timerMinutes.textContent = timer.minutes;
       timerSeconds.textContent = timer.seconds;
-
-      if(timer.timeRemaining > 0){
-        setTimeout(updateClock, 1000);
-      }
     }
 
-    updateClock();
+    setInterval(() => {
+      updateClock();
+    }, 1000);
   }
 
   countTimer('19 august 2021');
+
+  function two2digits (digit){
+    if (digit.toString().length < 2){
+      return '0' + digit;
+    } else {
+      return digit;
+    }
+  }
 });
 

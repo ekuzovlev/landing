@@ -38,7 +38,6 @@ window.addEventListener('DOMContentLoaded', function(){
     }, 1000);
   }
 
-  countTimer('19 august 2021');
 
   function two2digits (digit){
     if (digit.toString().length < 2){
@@ -47,5 +46,32 @@ window.addEventListener('DOMContentLoaded', function(){
       return digit;
     }
   }
+
+  countTimer('19 august 2021');
+
+  // МЕНЮ
+  const toggleMenu = () => {
+    const btnMenu = document.querySelector('.menu'),
+          menu = document.querySelector('menu'),
+          closeBtn = document.querySelector('.close-btn'),
+          menuItems = menu.querySelectorAll('ul>li');
+
+    const handlerMenu = () => {
+      if (!menu.style.transform || menu.style.transform === 'translate(-100%)'){
+        menu.style.transform = 'translate(0)';
+      } else {
+        menu.style.transform = 'translate(-100%)';
+      }
+    };
+
+btnMenu.addEventListener('click', handlerMenu);
+closeBtn.addEventListener('click', handlerMenu);
+
+menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+
+  };
+
+  toggleMenu();
+
 });
 

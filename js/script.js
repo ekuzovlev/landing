@@ -57,11 +57,7 @@ window.addEventListener('DOMContentLoaded', function(){
           menuItems = menu.querySelectorAll('ul>li');
 
     const handlerMenu = () => {
-      if (!menu.style.transform || menu.style.transform === 'translate(-100%)'){
-        menu.style.transform = 'translate(0)';
-      } else {
-        menu.style.transform = 'translate(-100%)';
-      }
+      menu.classList.toggle('active-menu');
     };
 
 btnMenu.addEventListener('click', handlerMenu);

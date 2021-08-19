@@ -18,6 +18,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
           return {timeRemaining, hours, minutes, seconds};
         } else {
+          clearInterval(timerId);
           return {timeRemaining: 0,
                  hours: '00',
                  minutes: '00',
@@ -28,17 +29,15 @@ window.addEventListener('DOMContentLoaded', function(){
     function updateClock(){
       let timer = getTimeRemaining();
 
-      timerHours.textContent = timer.hours;
-      timerMinutes.textContent = timer.minutes;
+      timerHours.textContent = timer.hours + ' : ';
+      timerMinutes.textContent = timer.minutes + ' : ';
       timerSeconds.textContent = timer.seconds;
     }
 
-    setInterval(() => {
-      updateClock();
-    }, 1000);
+    let timerId = setInterval(updateClock, 1000);
   }
 
-  countTimer('19 august 2021');
+  countTimer('21 august 2021');
 
   function two2digits (digit){
     if (digit.toString().length < 2){

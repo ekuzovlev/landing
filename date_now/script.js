@@ -12,30 +12,46 @@ let helloString = document.querySelector('#hello'),
   timeString = document.querySelector('#time'),
   newYearString = document.querySelector('#newyear');
 
-let timeNow = new Date(),
-  hours = timeNow.getHours();
+let getTimeNow = function() {
+  let date = new Date();
+  return date;
+  };
 
-function getHello(){
-  if (hours > 5 && hours < 11) {
-    return 'Доброе утро';
-  } else if (hours > 11 && hours < 17) {
-    return 'Добрый день';
-  } else if (hours > 17 && hours < 22) {
-    return 'Добрый вечер';
+let showHello = () => {
+  let hour = getTimeNow().getHours();
+  let message = '';
+
+  if (hour > 5 && hour < 11) {
+    message = 'Доброе утро';
+  } else if (hour > 11 && hour < 17) {
+    message = 'Добрый день';
+  } else if (hour > 17 && hour < 22) {
+    message = 'Добрый вечер';
   } else {
-    return 'Доброй ночи';
+    message = 'Доброй ночи';
   }
-}
 
-let getDate = function(date){
-  let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-  return date.toLocaleDateString('ru-RU', options).split(', '); // ["понедельник", " 9 августа 2021 г."]
+  helloString.textContent = `${message}`;
 };
 
-let NewYearDate = new Date('1 january 2022');
+let showToday = () => {
+  let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-helloString.textContent = `${getHello()}`;
-todayString.textContent = `Cегодня: ${getDate(timeNow)[0]}`;
-timeString.textContent = `Текущее время: ${timeNow.toLocaleTimeString('en-US')}`;
-newYearString.textContent = `До нового года осталось ${Math.floor((NewYearDate - timeNow) / 86400000)} дней.`;
+  let today = getTimeNow().toLocaleDateString('ru-RU', options).split(', '); // ["понедельник", " 9 августа 2021 г."]
+  todayString.textContent = `Cегодня: ${today[0]}`;
+};
+
+let showTime = () => {
+  timeString.textContent = `Текущее время: ${getTimeNow().toLocaleTimeString('en-US')}`;
+};
+
+let showNewYear = () => {
+  let NewYearDate = new Date(`1 january ${getTimeNow().getFullYear() + 1}`);
+
+  newYearString.textContent = `До нового года осталось ${Math.floor((NewYearDate - getTimeNow()) / 86400000)} дней.`;
+};
+
+setInterval(showHello, 1000);
+setInterval(showToday, 1000);
+setInterval(showTime, 1000);
+setInterval(showNewYear, 1000);

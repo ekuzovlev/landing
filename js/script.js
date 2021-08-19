@@ -70,6 +70,23 @@ menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
   toggleMenu();
 
   // POPUP
+  // animaton
+  let popupContent = document.querySelector('.popup-content');
+  let count = 0;
+  let popupInterval;
+  const screenWidth = window.screen.width;
+
+  let popupAnimate = function() {
+    popupInterval = requestAnimationFrame(popupAnimate);
+    count++;
+    if(count < 38){
+      popupContent.style.left = count + '%';
+    }else {
+      cancelAnimationFrame(popupInterval);
+      count = 0;
+    }
+  };
+
   const togglePopup = () => {
     const popup = document.querySelector('.popup'),
           popupBtn = document.querySelectorAll('.popup-btn'),
@@ -78,6 +95,9 @@ menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
     popupBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         popup.style.display = 'block';
+        if (screenWidth > 768) {
+          popupInterval = requestAnimationFrame(popupAnimate);
+        }
       });
     });
 
